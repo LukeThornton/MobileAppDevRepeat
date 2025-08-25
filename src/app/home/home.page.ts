@@ -37,11 +37,16 @@ export class HomePage implements OnInit {
 
   //init storagae
   async ngOnInit() {
-    await this.store.create();                 
-    const saved = await this.store.get('tasks');
-    this.tasks = (saved || []).map((t: any) => ({
-    }));
-  }
+  await this.store.create();                  
+  const saved = await this.store.get('tasks');
+  this.tasks = (saved || []).map((t: any) => ({
+    id: t.id,
+    title: t.title,
+    done: !!t.done,
+    priority: t.priority || 'yellow'   
+  }));
+}
+
 
   //add task
   async addTask() {
