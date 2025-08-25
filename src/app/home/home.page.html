@@ -8,14 +8,47 @@
 
   <!-- New task-->
   <ion-item>
-    <ion-input [(ngModel)]="newTask" placeholder="add a task..."></ion-input>
+    <ion-input
+      [(ngModel)]="newTask"
+      placeholder="add a task...">
+    </ion-input>
     <ion-button (click)="addTask()" [disabled]="!newTask?.trim()">Add</ion-button>
   </ion-item>
 
-  <!-- Task list -->
+  <!-- color pick) -->
+  <ion-item>
+    <ion-label>Priority:</ion-label>
+    <ion-segment [value]="priority" (ionChange)="setPriority($event.detail.value)">
+      <ion-segment-button value="yellow">
+        <ion-label>yellow</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="orange">
+        <ion-label>orange</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="red">
+        <ion-label>red</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-item>
+
+  <!-- tasklist -->
   <ion-list>
     <ion-item *ngFor="let t of tasks">
-      <ion-label>{{ t.title }}</ion-label>
+      <ion-checkbox slot="start" [checked]="t.done" (ionChange)="toggleTask(t)"></ion-checkbox>
+
+      <!-- tiny color square -->
+      <div
+        [ngStyle]="{ background: getColor(t.priority), width: '14px', height: '14px', 'border-radius': '3px', 'margin-right': '8px' }">
+      </div>
+
+      <!-- title / add fader  -->
+      <ion-label [style.opacity]="t.done ? 0.6 : 1">
+        {{ t.title }}
+      </ion-label>
+      <!-- delete -->
+      <ion-button fill="clear" color="danger" slot="end" (click)="deleteTask(t.id)">
+        Delete
+      </ion-button>
     </ion-item>
   </ion-list>
 
