@@ -8,15 +8,11 @@
 
   <!-- New task-->
   <ion-item>
-    <ion-input
-      [(ngModel)]="newTask"
-      placeholder="add a task...">
-    </ion-input>
-    <!-- button but no logic yet -->
-    <ion-button [disabled]="!newTask?.trim()">Add</ion-button>
+    <ion-input [(ngModel)]="newTask" placeholder="add a task..."></ion-input>
+    <ion-button (click)="addTask()" [disabled]="!newTask?.trim()">Add</ion-button>
   </ion-item>
 
-  <!-- tasklist -->
+  <!-- Task list -->
   <ion-list>
     <ion-item *ngFor="let t of tasks">
       <ion-label>{{ t.title }}</ion-label>

@@ -6,7 +6,7 @@ import {
 } from '@ionic/angular/standalone';
 import { FormsModule } from '@angular/forms';
 
-//task structure
+//Task structure
 type Task = { id: number; title: string; done: boolean };
 
 @Component({
@@ -26,5 +26,11 @@ export class HomePage {
   tasks: Task[] = [];
   newTask = '';
 
-
+  //add task
+  addTask() {
+    const title = (this.newTask || '').trim();
+    if (!title) return;
+    this.tasks.unshift({ id: Date.now(), title, done: false });
+    this.newTask = '';
+  }
 }
